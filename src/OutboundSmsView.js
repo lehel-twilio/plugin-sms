@@ -27,9 +27,9 @@ export class OutboundSmsView extends React.Component {
   }
 
   startSMS() {
-    const to = this.state.To;
-    const from = this.state.From;
-    const message = this.state.Message;
+    const to = encodeURIComponent(this.state.To);
+    const from = encodeURIComponent(this.state.From);
+    const message = encodeURIComponent(this.state.Message);
     const url = this.props.url;
 
     if (to.length > 0 && from.length > 0) {

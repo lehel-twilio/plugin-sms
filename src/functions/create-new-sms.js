@@ -1,8 +1,5 @@
 const axios = require('axios');
 
-const CHAT_SERVICE_SID = 'IS25798ff85e9a41909c5534570f51cc6c';
-const FLEX_FLOW_SID = 'FOd5accaed56ea7e7f9f3d2fda19eb7008'; // Must be the sms FlexFlow
-
 exports.handler = async function (context, event, callback) {
   const response = new Twilio.Response();
   response.appendHeader('Access-Control-Allow-Origin', '*');
@@ -23,7 +20,7 @@ exports.handler = async function (context, event, callback) {
   const from = sanitizeNumber(event.From);
 
   const channelArgs = {
-    FlexFlowSid: FLEX_FLOW_SID,
+    FlexFlowSid: context.FLEX_FLOW_SID,
     Identity: event.To,
     Target: event.To,
     ChatUserFriendlyName: event.ToFriendlyName || event.To,
@@ -39,7 +36,7 @@ exports.handler = async function (context, event, callback) {
     from: from
   }).then(() => {
     console.log('adding message to', channelResponse.data.sid);
-    client.chat.services(CHAT_SERVICE_SID)
+    client.chat.services(context.CHAT_SERVICE_SID)
       .channels(channelResponse.data.sid)
       .messages
       .create({
