@@ -18,7 +18,7 @@ const input = css`
   }
 `
 
-export class SMS extends React.Component {
+export class OutboundSmsView extends React.Component {
 
   state = {
     To: '',
@@ -31,16 +31,14 @@ export class SMS extends React.Component {
     const from = this.state.From;
     const message = this.state.Message;
     const url = this.props.url;
-    const worker = this.props.worker;
 
-    if ((to.length > 0) && (from.length > 0)) {
-
+    if (to.length > 0 && from.length > 0) {
       fetch(`${url}/create-new-sms`, {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         },
         method: 'POST',
-        body: `From=${from}&To=${to}&Worker=${worker}&Message=${message}`
+        body: `From=${from}&To=${to}&Message=${message}&Token=${this.props.jweToken}`
       })
       .then(Actions.invokeAction('NavigateToView', {viewName: 'agent-desktop'}));
     } else {
@@ -55,7 +53,6 @@ export class SMS extends React.Component {
   };
 
   render() {
-
     return (
       <div css={smsCanvas}>
         <div>
@@ -99,9 +96,8 @@ const mapStateToProps = state => {
   return {
     url: state.flex.config.serviceBaseUrl.slice(0,5) === 'https'
       ? (state.flex.config.serviceBaseUrl.slice(-1) === '/' ? state.flex.config.serviceBaseUrl.substring(0, state.flex.config.serviceBaseUrl.length - 1) : state.flex.config.serviceBaseUrl)
-      : ('https://' + (state.flex.config.serviceBaseUrl.slice(-1) === '/' ? state.flex.config.serviceBaseUrl.substring(0, state.flex.config.serviceBaseUrl.length - 1) : state.flex.config.serviceBaseUrl)),
-    worker: state.flex.worker.attributes.contact_uri
+      : ('https://' + (state.flex.config.serviceBaseUrl.slice(-1) === '/' ? state.flex.config.serviceBaseUrl.substring(0, state.flex.config.serviceBaseUrl.length - 1) : state.flex.config.serviceBaseUrl))
   }
 }
 
-export default connect(mapStateToProps)(SMS);
+export default connect(mapStateToProps)(OutboundSmsView);
