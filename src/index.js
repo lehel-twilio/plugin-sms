@@ -1,4 +1,4 @@
 import * as FlexPlugin from 'flex-plugin';
-import SmsPlugin from './SmsPlugin';
+import OutboundSmsPlugin from './OutboundSmsPlugin';
 
-FlexPlugin.loadPlugin(SmsPlugin);
+FlexPlugin.loadPlugin(OutboundSmsPlugin);

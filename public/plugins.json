@@ -9,5 +9,9 @@
       }
     ],
     "src": "http://localhost:8080/plugin-sms.js"
+  },
+  {
+  "name": "admin plugin",
+  "src": "https://assets.flex.twilio.com/twilio/flex-admin-plugin/1.4.0/flex-admin-plugin.js"
   }
 ]
