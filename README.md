@@ -1,3 +1,9 @@
+#SMS
+
+Send SMS Messages from Flex
+
+![SMS](https://zaffre-cow-9057.twil.io/assets/outbound%20SMS.gif)
+
 Set your accountSid and serviceBaseURL in /public/appConfig.js
 
 To build, run npm run build.
